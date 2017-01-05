@@ -36,12 +36,15 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
  */
 
 class ColorBot(token: String) : ListenerAdapter() {
-	val bot: JDA = JDABuilder(AccountType.BOT)
+	val jda: JDABuilder = JDABuilder(AccountType.BOT)
 			.addListener(this)
 			.setToken(token)
-			.buildBlocking()
-
+	var bot: JDA? = null
 	val commandChan: String = "266598610659966976"
+
+	fun run() {
+		bot = jda.buildBlocking()
+	}
 
 	override fun onMessageReceived(e: MessageReceivedEvent?) {
 		super.onMessageReceived(e)
@@ -116,7 +119,7 @@ class ColorBot(token: String) : ListenerAdapter() {
 	}
 
 	fun getColorRole(member: Member): Role? {
-		return member.roles.firstOrNull { it.name.startsWith("#") && it.name.length == 7 && it.permissionsRaw == 0x00000000L}
+		return member.roles.firstOrNull { it.name.startsWith("#") && it.name.length == 7 && it.permissionsRaw == 0x00000000L }
 	}
 
 	fun indexToHex(index: Int): String? {

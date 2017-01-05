@@ -30,5 +30,6 @@ fun main(args: Array<String>) {
 		println("No token specified!")
 		return
 	}
-	ColorBot(args[0])
+	val bot: ColorBot = ColorBot(args[0])
+	bot.run()
 }
