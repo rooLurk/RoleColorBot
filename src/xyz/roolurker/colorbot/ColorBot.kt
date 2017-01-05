@@ -124,7 +124,7 @@ class ColorBot(token: String) : ListenerAdapter() {
 
 	fun indexToHex(index: Int): String? {
 		when (index) {
-			1 -> return "#FFFFFF"
+			1 -> return null // "#FFFFFF"
 			2 -> return "#010101"
 			3 -> return "#C0C0C0"
 			4 -> return "#808080"
