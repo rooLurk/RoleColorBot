@@ -3,10 +3,7 @@ package xyz.roolurker.colorbot
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.entities.Guild
-import net.dv8tion.jda.core.entities.Member
-import net.dv8tion.jda.core.entities.MessageChannel
-import net.dv8tion.jda.core.entities.Role
+import net.dv8tion.jda.core.entities.*
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
@@ -50,7 +47,7 @@ class ColorBot(token: String) : ListenerAdapter() {
 		super.onMessageReceived(e)
 		if (e == null) {
 			return
-		} else if (e.channel.id != commandChan || e.author.isBot) {
+		} else if (e.channel.id != commandChan || e.author.isBot || e.channel.type != ChannelType.TEXT) {
 			return
 		}
 		val msg: String = e.message.rawContent
