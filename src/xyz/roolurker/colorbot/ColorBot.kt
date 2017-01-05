@@ -3,7 +3,10 @@ package xyz.roolurker.colorbot
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
-import net.dv8tion.jda.core.entities.*
+import net.dv8tion.jda.core.entities.Guild
+import net.dv8tion.jda.core.entities.Member
+import net.dv8tion.jda.core.entities.MessageChannel
+import net.dv8tion.jda.core.entities.Role
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
@@ -56,10 +59,16 @@ class ColorBot(token: String) : ListenerAdapter() {
 				val par2: String = split[1]
 				if (split.size == 2) {
 					if ("remove" == par2) {
-						e.guild.controller.removeRolesFromMember(member, getColorRole(member)).queue({
-							channel.sendMessage("${member.asMention} Done!").queue()
-						})
-						return
+						val oldRole: Role? = getColorRole(member)
+						if (oldRole == null) {
+							channel.sendMessage("${member.asMention} You do not have a color!").queue()
+							return
+						} else {
+							e.guild.controller.removeRolesFromMember(member, oldRole).queue({
+								channel.sendMessage("${member.asMention} Done!").queue()
+							})
+							return
+						}
 					}
 					try {
 						val i: Int = par2.toInt()
@@ -119,9 +128,9 @@ class ColorBot(token: String) : ListenerAdapter() {
 			5 -> return "#87CEEB"
 			6 -> return "#008FFF"
 			7 -> return "#4169E1"
-			8 -> return "#0033FF"
-			9 -> return "#00058F"
-			10 -> return "#000550"
+			8 -> return null // "#0033FF"
+			9 -> return null // "#00058F"
+			10 -> return null // "#000550"
 			11 -> return "#90FFFF"
 			12 -> return "#00FFFF"
 			13 -> return "#40E0D0"
@@ -147,7 +156,7 @@ class ColorBot(token: String) : ListenerAdapter() {
 			33 -> return "#FF5A3D"
 			34 -> return "#FF4500"
 			35 -> return "#FF0000"
-			36 -> return "#970A04"
+			36 -> return null // "#970A04"
 			37 -> return "#DB133B"
 			38 -> return "#FFFF00"
 			39 -> return "#E6B907"
@@ -157,7 +166,7 @@ class ColorBot(token: String) : ListenerAdapter() {
 			43 -> return "#D3138C"
 			44 -> return "#AC25B1"
 			45 -> return "#FF00FF"
-			46 -> return "#960F96"
+			46 -> return null // "#960F96"
 			47 -> return "#A869FF"
 			48 -> return "#8A2BE2"
 			49 -> return "#BB55FF"
