@@ -56,8 +56,8 @@ class ColorBot(token: String) : ListenerAdapter() {
 			if ("!color" == split[0] || "!colour" == split[0]) {
 				val channel: MessageChannel = e.channel
 				val member: Member = e.member
-				val par2: String = split[1]
 				if (split.size == 2) {
+					val par2: String = split[1]
 					if ("remove" == par2) {
 						val oldRole: Role? = getColorRole(member)
 						if (oldRole == null) {
